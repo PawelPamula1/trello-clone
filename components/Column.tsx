@@ -1,7 +1,12 @@
 import { useBoardStore } from "@/store/BoardStore";
+import { useModalStore } from "@/store/ModalStore";
 import { PlusCircleIcon } from "@heroicons/react/24/solid";
 import React from "react";
-import { Draggable, Droppable, DropResult } from "react-beautiful-dnd";
+import {
+  Draggable,
+  Droppable,
+  DropResult,
+} from "react-beautiful-dnd";
 import TodoCard from "./TodoCard";
 
 type ColumnProps = {
@@ -19,7 +24,12 @@ const idToColumnText: {
 };
 
 const Column = ({ id, todos, index }: ColumnProps) => {
-  const [searchString] = useBoardStore((state) => [state.searchString]);
+  const [searchString] = useBoardStore((state) => [
+    state.searchString,
+  ]);
+  const [openModal] = useModalStore((state) => [
+    state.openModal,
+  ]);
   return (
     <Draggable draggableId={id} index={index}>
       {(provided) => (
@@ -29,13 +39,18 @@ const Column = ({ id, todos, index }: ColumnProps) => {
           {...provided.dragHandleProps}
           ref={provided.innerRef}
         >
-          <Droppable droppableId={index.toString()} type="card">
+          <Droppable
+            droppableId={index.toString()}
+            type="card"
+          >
             {(provided, snapshot) => (
               <div
                 {...provided.droppableProps}
                 ref={provided.innerRef}
                 className={`p-2 rounded-2xl shadow-sm ${
-                  snapshot.isDraggingOver ? "bg-green-200" : "bg-white/50"
+                  snapshot.isDraggingOver
+                    ? "bg-green-200"
+                    : "bg-white/50"
                 }`}
               >
                 <h2 className="flex justify-between font-bold text-xl items-center">
@@ -46,7 +61,9 @@ const Column = ({ id, todos, index }: ColumnProps) => {
                       : todos.filter((todo) =>
                           todo.title
                             .toLowerCase()
-                            .includes(searchString.toLowerCase())
+                            .includes(
+                              searchString.toLowerCase()
+                            )
                         ).length}
                   </span>
                 </h2>
@@ -57,7 +74,9 @@ const Column = ({ id, todos, index }: ColumnProps) => {
                       searchString &&
                       !todo.title
                         .toLowerCase()
-                        .includes(searchString.toLowerCase())
+                        .includes(
+                          searchString.toLowerCase()
+                        )
                     )
                       return null;
                     return (
@@ -72,8 +91,12 @@ const Column = ({ id, todos, index }: ColumnProps) => {
                             id={id}
                             index={index}
                             innerRef={provided.innerRef}
-                            draggableProps={provided.draggableProps}
-                            dragHandleProps={provided.dragHandleProps}
+                            draggableProps={
+                              provided.draggableProps
+                            }
+                            dragHandleProps={
+                              provided.dragHandleProps
+                            }
                           />
                         )}
                       </Draggable>
@@ -84,7 +107,10 @@ const Column = ({ id, todos, index }: ColumnProps) => {
 
                   <div className="flex items-end justify-end">
                     <button className="text-green-500 hover:text-green-600">
-                      <PlusCircleIcon className="h-10 w-10" />
+                      <PlusCircleIcon
+                        onClick={openModal}
+                        className="h-10 w-10"
+                      />
                     </button>
                   </div>
                 </div>
