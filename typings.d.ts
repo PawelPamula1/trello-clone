@@ -19,5 +19,5 @@ type Todo = {
 
 type Image = {
   bucketId: string;
-  fileIf: string;
+  fileId: string;
 };

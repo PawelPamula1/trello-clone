@@ -26,7 +26,5 @@ export async function POST(request: Request) {
   });
 
   const { choices } = response;
-
-  console.log("CHOICES ARE:", choices);
   return NextResponse.json(choices[0].message);
 }
