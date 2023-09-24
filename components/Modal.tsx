@@ -123,7 +123,6 @@ const Modal = () => {
                     ref={imagePickerRef}
                     hidden
                     onChange={(e) => {
-                      console.log(e.target.files);
                       if (
                         !e.target.files![0]?.type.startsWith(
                           "image/"

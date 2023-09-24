@@ -98,8 +98,6 @@ export const useBoardStore = create<BoardState>(
         }
       }
 
-      console.log(ID.unique());
-
       const { $id } = await databases.createDocument(
         process.env.NEXT_PUBLIC_DATABASE_ID!,
         process.env.NEXT_PUBLIC_TODOS_COLLECTION_ID!,
