@@ -46,7 +46,7 @@ const TodoCard = ({
       };
       fetchImage();
     }
-  }, []);
+  }, [todo.image]);
   return (
     <div
       className="bg-white rounded-md space-y-2 drop-shadow-md"
